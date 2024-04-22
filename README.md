@@ -1,4 +1,5 @@
 # GladioMorePlayers
+![Build](https://github.com/checkraisefold/GladioMorePlayers/actions/workflows/build.yml/badge.svg)
 A [MelonLoader](https://melonwiki.xyz/#/README) mod for the Steam game/demo [Gladio Mori](https://store.steampowered.com/app/2689120/Gladio_Mori/), adding a player management menu and increasing the player cap to 16.
 Default binding to open the manager menu is F6. You can change this in `UserData/MelonPreferences.cfg` after the first run of the mod.
 
