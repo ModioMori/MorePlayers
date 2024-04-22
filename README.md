@@ -5,8 +5,13 @@ Default binding to open the manager menu is F6. You can change this in `UserData
 # Installation
 1. [Download and install MelonLoader with the automated installer.](https://melonwiki.xyz/#/README?id=automated-installation) If you can't run it, scroll up on that page; you may need .NET Framework 4.8.
 2. [Go to the Releases page and download the latest release.](https://github.com/checkraisefold/GladioMorePlayers/releases)
-3. Open the game's install folder and drag the DLL into the `Mods` folder.
-4. Launch the game and play!
+3. Open the game's install folder. ![steamwebhelper_MgEX2j797W](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/757debf4-1969-4d88-a4a9-bc62e1907f2e)
+4. Drag the DLL you downloaded into the `Mods` folder.![firefox_zZ8CpQOniM](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/24957617-2844-44b0-8bae-937d5b0898d7)
+5. Launch the game and play!
+
+# Screenshots
+![Gladio_Mori_0bEQd287Gm](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/97fa94f4-4418-4838-9a62-75f5ed63fd87)
+![Gladio_Mori_2z5C49lTYL](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/97cda077-d8cd-4a3a-9708-31c75be1d916)
 
 # Compiling
 The csproj uses reference paths based on the default Steam library installation folder of Gladio Mori. If you have the game installed on another drive, you will have to change these paths manually.
