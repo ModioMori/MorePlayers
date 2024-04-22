@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - uses: robinraju/release-downloader@v1.10
+    - name: Fetch DepotDownloader
+      with:
+        repository: "SteamRE/DepotDownloader"
+        fileName: "depotdownloader-2.5.0.zip"
+        extract: true
+
+    - name: Download Game Files
+      run: dotnet DepotDownloader.dll -app 2908480 -username "${{ secrets.STEAM_USER }}" -password "${{ secrets.STEAM_PASS }}" -dir "Gladio Mori"
+
+    - uses: robinraju/release-downloader@v1.10
+    - name: Fetch MelonLoader
+      with:
+        repository: "LavaGang/MelonLoader"
+        fileName: "MelonLoader.x64.zip"
+        out-file-path: "Gladio Mori"
+        extract: true
+
+    - name: Fix Reference Paths
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Gladio Mori Demo"
+        replace: "Gladio Mori"
+        regex: false
+        include: "GladioMorePlayers.csproj"
+
+    - name: Build
+      run: |
+        dotnet build
+        dotnet build --configuration Release
