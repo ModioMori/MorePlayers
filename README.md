@@ -14,7 +14,7 @@ Default binding to open the manager menu is F6. You can change this in `UserData
 5. Launch the game and play!
 
 # Screenshots
-![Gladio_Mori_0bEQd287Gm](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/97fa94f4-4418-4838-9a62-75f5ed63fd87)
+![Gladio_Mori_tmRbuSMFnR](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/c39d861c-6c54-481d-bd0f-bbd61194675c)
 ![Gladio_Mori_2z5C49lTYL](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/97cda077-d8cd-4a3a-9708-31c75be1d916)
 
 # Compiling
