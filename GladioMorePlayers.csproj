@@ -7,49 +7,49 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\MelonLoader\net35\0Harmony.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\MelonLoader\net35\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Facepunch.Steamworks.Win64">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
     </Reference>
     <Reference Include="MelonLoader">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\MelonLoader\net35\MelonLoader.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\MelonLoader\net35\MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Mirror.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="Mirror.Components">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Mirror.Components.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Mirror.Components.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsNativeModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UIElementsNativeModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UIElementsNativeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
