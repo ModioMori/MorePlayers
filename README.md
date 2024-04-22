@@ -1,6 +1,7 @@
 # GladioMoriMorePlayers
 A [MelonLoader](https://melonwiki.xyz/#/README) mod for the Steam game/demo [Gladio Mori](https://store.steampowered.com/app/2689120/Gladio_Mori/), adding a player management menu and increasing the player cap to 16.
 Default binding to open the manager menu is F6. You can change this in `UserData/MelonPreferences.cfg` after the first run of the mod.
+**NOTE: Only the host of the match requires this mod! This will do nothing for clients.**
 
 # Installation
 1. [Download and install MelonLoader with the automated installer.](https://melonwiki.xyz/#/README?id=automated-installation) If you can't run it, scroll up on that page; you may need .NET Framework 4.8. You'll have to browse to the game's executable; on most systems, this will be at `C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo`. If you can't find it, use the lower instructions to open the game's install folder and find the path.
