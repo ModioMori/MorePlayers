@@ -23,6 +23,7 @@ jobs:
       with:
         repository: "SteamRE/DepotDownloader"
         fileName: "depotdownloader-2.5.0.zip"
+        tag: "DepotDownloader_2.5.0"
         extract: true
 
     - name: Download Game Files
@@ -35,6 +36,7 @@ jobs:
         fileName: "MelonLoader.x64.zip"
         out-file-path: "Gladio Mori"
         extract: true
+        latest: true
 
     - name: Fix Reference Paths
       uses: jacobtomlinson/gha-find-replace@v3
