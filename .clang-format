@@ -1,0 +1,7 @@
+# Format Style Options - Created with Clang Power Tools
+---
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: ForIndentation
+...
