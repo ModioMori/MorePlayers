@@ -7,7 +7,7 @@ using Steamworks;
 using System.Collections.Generic;
 using System.Linq;
 
-[assembly:MelonInfo(typeof(MorePlayersMod), "Gladio More Players", "1.0.0", "checkraisefold")]
+[assembly:MelonInfo(typeof(MorePlayersMod), "Gladio More Players", "1.1.0", "checkraisefold")]
 [assembly:MelonGame("Plebeian Studio", "Gladio Mori")]
 
 namespace GladioMoriMorePlayers {
@@ -20,6 +20,7 @@ namespace GladioMoriMorePlayers {
 		public MelonPreferences_Entry<bool> randomizeSpawns;
 
 		private List<MultiplayerRoomPlayer>? currentPlayers;
+		public Dictionary<uint, bool> currentSpectators = new Dictionary<uint, bool>();
 		private float nextPlayerFetchTime = 0;
 		private bool uiOpen = false;
 
@@ -80,6 +81,8 @@ namespace GladioMoriMorePlayers {
 					    (MultiplayerRoomManager)NetworkManager.singleton;
 					RoomManager.ReadyStatusChanged();
 				}
+				currentSpectators[player.netId] =
+				    GUILayout.Toggle(currentSpectators[player.netId], "Spectator");
 				GUILayout.EndHorizontal();
 			}
 
@@ -91,6 +94,11 @@ namespace GladioMoriMorePlayers {
 			if (Time.time >= nextPlayerFetchTime && uiOpen) {
 				nextPlayerFetchTime = Time.time + 2;
 				currentPlayers = Object.FindObjectsOfType<MultiplayerRoomPlayer>().ToList();
+				foreach (MultiplayerRoomPlayer player in currentPlayers) {
+					if (!currentSpectators.ContainsKey(player.netId)) {
+						currentSpectators[player.netId] = false;
+					}
+				}
 			}
 			if (Input.GetKeyDown(openMenuBind.Value)) {
 				uiOpen = !uiOpen;
@@ -147,6 +155,22 @@ namespace GladioMoriMorePlayers {
 				SteamMatchmaking.CreateLobbyAsync(Mod.maxPlayers.Value);
 			}
 			return false;
+		}
+	}
+
+	[HarmonyPatch(typeof(PlayerMultiplayerInputManager), "Start")]
+	static class SpectatorCameraPatch {
+		private static void Postfix(PlayerMultiplayerInputManager __instance,
+		                            GameObject ___playerCharacter) {
+			if (!MorePlayersMod.instance.currentSpectators.ContainsKey(
+			        __instance.multiplayerRoomPlayer.netId)) {
+			}
+			if (MorePlayersMod.instance.currentSpectators[__instance.multiplayerRoomPlayer.netId]) {
+				__instance.HandlePlayerDeath();
+				Object.Destroy(___playerCharacter.transform.Find("PlayerModelPhysics").gameObject);
+				Object.Destroy(
+				    ___playerCharacter.transform.Find("PlayerModelAnimation").gameObject);
+			}
 		}
 	}
 }
