@@ -92,7 +92,7 @@ namespace GladioMoriMorePlayers {
 				nextPlayerFetchTime = Time.time + 2;
 				currentPlayers = Object.FindObjectsOfType<MultiplayerRoomPlayer>().ToList();
 			}
-			if (UnityEngine.Input.GetKeyDown(openMenuBind.Value)) {
+			if (Input.GetKeyDown(openMenuBind.Value)) {
 				uiOpen = !uiOpen;
 			}
 		}
