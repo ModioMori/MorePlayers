@@ -3,7 +3,7 @@ A [MelonLoader](https://melonwiki.xyz/#/README) mod for the Steam game/demo [Gla
 Default binding to open the manager menu is F6. You can change this in `UserData/MelonPreferences.cfg` after the first run of the mod.
 
 # Installation
-1. [Download and install MelonLoader with the automated installer.](https://melonwiki.xyz/#/README?id=automated-installation) If you can't run it, scroll up on that page; you may need .NET Framework 4.8.
+1. [Download and install MelonLoader with the automated installer.](https://melonwiki.xyz/#/README?id=automated-installation) If you can't run it, scroll up on that page; you may need .NET Framework 4.8. You'll have to browse to the game's executable; on most systems, this will be at `C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo`. If you can't find it, use the lower instructions to open the game's install folder and find the path.
 2. [Go to the Releases page and download the latest release.](https://github.com/checkraisefold/GladioMorePlayers/releases)
 3. Open the game's install folder. ![steamwebhelper_MgEX2j797W](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/757debf4-1969-4d88-a4a9-bc62e1907f2e)
 4. Drag the DLL you downloaded into the `Mods` folder.![firefox_zZ8CpQOniM](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/24957617-2844-44b0-8bae-937d5b0898d7)
