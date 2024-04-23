@@ -10,6 +10,7 @@
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
     <RootNamespace>GladioMorePlayers</RootNamespace>
+    <Version>2.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
