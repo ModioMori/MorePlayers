@@ -7,9 +7,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 
-using GladioMorePlayers;
-
-namespace GladioMoriMorePlayers {
+namespace GladioMorePlayers {
 	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.1")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
@@ -27,6 +25,7 @@ namespace GladioMoriMorePlayers {
 		private void Awake() {
 			instance = this;
 			log = Logger;
+			gameObject.hideFlags = HideFlags.HideAndDontSave;
 			Harmony.CreateAndPatchAll(typeof(HarmonyPatches));
 
 			maxPlayers = Config.Bind("General", "maxPlayers", 16,
@@ -98,10 +97,6 @@ namespace GladioMoriMorePlayers {
 
 			GUILayout.EndVertical();
 			GUILayout.EndArea();
-		}
-
-		private void OnDestroy() {
-			Logger.LogInfo("Plugin destroyed!");
 		}
 
 		private void Update() {
