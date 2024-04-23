@@ -35,7 +35,7 @@ namespace GladioMorePlayers {
 				    "Could not get random spawns pref! Defaulting to false.");
 				return true;
 			}
-			if (Mod.randomizeSpawns.Value) {
+			if (!Mod.randomizeSpawns.Value) {
 				return true;
 			}
 
