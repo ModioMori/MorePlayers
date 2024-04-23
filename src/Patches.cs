@@ -72,6 +72,7 @@ namespace GladioMorePlayers {
 		                                          GameObject ___playerCharacter) {
 			if (!MorePlayersMod.instance!.currentSpectators.ContainsKey(
 			        __instance.multiplayerRoomPlayer.netId)) {
+				return;
 			}
 			if (MorePlayersMod.instance!
 			        .currentSpectators[__instance.multiplayerRoomPlayer.netId]) {

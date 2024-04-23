@@ -10,7 +10,7 @@ using HarmonyLib;
 using GladioMorePlayers;
 
 namespace GladioMoriMorePlayers {
-	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.0.0")]
+	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.0")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
 		public static ManualLogSource? log;
@@ -66,21 +66,30 @@ namespace GladioMoriMorePlayers {
 				return;
 			}
 
+			bool inLobby = MultiplayerLobbyStatusManager.singleton != null;
 			foreach (MultiplayerRoomPlayer player in currentPlayers) {
 				if (player == null || player.disconnecting) {
 					continue;
 				}
 				GUILayout.BeginHorizontal();
-				GUILayout.Box(
-				    $"Player: {player.playerName} is {(player.playerReadyState ? "Ready" : "Not Ready")}");
-				if (GUILayout.Button("Kick")) {
-					player.GetComponent<NetworkIdentity>().connectionToClient.Disconnect();
+				if (inLobby) {
+					GUILayout.Box(
+					    $"Player: {player.playerName} is {(player.playerReadyState ? "Ready" : "Not Ready")}");
+				} else {
+					GUILayout.Box($"Player: {player.playerName}");
 				}
-				if (GUILayout.Button("Toggle Ready")) {
-					player.SetReadyToBegin(!player.playerReadyState);
-					MultiplayerRoomManager RoomManager =
-					    (MultiplayerRoomManager)NetworkManager.singleton;
-					RoomManager.ReadyStatusChanged();
+				if (player.connectionToServer == null) {
+					if (GUILayout.Button("Kick")) {
+						player.GetComponent<NetworkIdentity>().connectionToClient.Disconnect();
+					}
+				}
+				if (inLobby) {
+					if (GUILayout.Button("Toggle Ready")) {
+						player.SetReadyToBegin(!player.playerReadyState);
+						MultiplayerRoomManager RoomManager =
+						    (MultiplayerRoomManager)NetworkManager.singleton;
+						RoomManager.ReadyStatusChanged();
+					}
 				}
 				currentSpectators[player.netId] =
 				    GUILayout.Toggle(currentSpectators[player.netId], "Spectator");
