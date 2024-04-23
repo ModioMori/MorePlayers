@@ -8,7 +8,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 
 namespace GladioMorePlayers {
-	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.1")]
+	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.2")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
 		public static ManualLogSource? log;
