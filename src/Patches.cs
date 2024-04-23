@@ -31,7 +31,8 @@ namespace GladioMorePlayers {
 
 			MorePlayersMod Mod = MorePlayersMod.instance!;
 			if (Mod.randomizeSpawns == null) {
-				Mod.LoggerInstance.Error("Could not get random spawns pref! Defaulting to false.");
+				MorePlayersMod.log!.LogError(
+				    "Could not get random spawns pref! Defaulting to false.");
 				return true;
 			}
 			if (Mod.randomizeSpawns.Value) {
@@ -55,7 +56,7 @@ namespace GladioMorePlayers {
 		private static bool ChangeLobbyMaxConnections() {
 			MorePlayersMod Mod = MorePlayersMod.instance!;
 			if (Mod.maxPlayers == null) {
-				Mod.LoggerInstance.Error(
+				MorePlayersMod.log!.LogError(
 				    "Could not get max players pref! Defaulting to 4 players.");
 				return true;
 			}

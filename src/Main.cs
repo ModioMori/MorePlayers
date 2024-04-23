@@ -1,50 +1,47 @@
-﻿using GladioMoriMorePlayers;
-using MelonLoader;
+﻿using BepInEx;
 using UnityEngine;
-using HarmonyLib;
 using Mirror;
-using Steamworks;
 using System.Collections.Generic;
 using System.Linq;
-using HarmonyLib.Tools;
+using BepInEx.Configuration;
+using BepInEx.Logging;
+using HarmonyLib;
 
-[assembly:MelonInfo(typeof(MorePlayersMod), "Gladio More Players", "1.1.0", "checkraisefold")]
-[assembly:MelonGame("Plebeian Studio", "Gladio Mori")]
+using GladioMorePlayers;
 
 namespace GladioMoriMorePlayers {
-	public class MorePlayersMod : MelonMod {
+	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.0.0")]
+	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
+		public static ManualLogSource? log;
 
-		private MelonPreferences_Category? modPrefs;
-		public MelonPreferences_Entry<int>? maxPlayers;
-		private MelonPreferences_Entry<string>? openMenuBind;
-		public MelonPreferences_Entry<bool>? randomizeSpawns;
+		public ConfigEntry<int>? maxPlayers;
+		private ConfigEntry<string>? openMenuBind;
+		public ConfigEntry<bool>? randomizeSpawns;
 
 		private List<MultiplayerRoomPlayer>? currentPlayers;
 		public Dictionary<uint, bool> currentSpectators = new Dictionary<uint, bool>();
 		private float nextPlayerFetchTime = 0;
 		private bool uiOpen = false;
 
-		public override void OnEarlyInitializeMelon() {
+		private void Awake() {
 			instance = this;
-		}
+			log = Logger;
+			Harmony.CreateAndPatchAll(typeof(HarmonyPatches));
 
-		public override void OnInitializeMelon() {
-			modPrefs = MelonPreferences.CreateCategory("MorePlayersPrefs", "Main Preferences");
-			maxPlayers =
-			    modPrefs.CreateEntry<int>("maxPlayers", 16, "Maximum Players",
-			                              "Maximum amount of players that can join your server.");
-			openMenuBind = modPrefs.CreateEntry<string>(
-			    "openMenuBind", "f6", "Open Manager Bind",
+			maxPlayers = Config.Bind("General", "maxPlayers", 16,
+			                         "Maximum amount of players that can join your server.");
+			openMenuBind = Config.Bind(
+			    "General", "openMenuBind", "f6",
 			    "Keybind to open the manager UI. See 'Mapping virtual axes to controls' on https://docs.unity3d.com/Manual/class-InputManager.html for key names.");
-			randomizeSpawns = modPrefs.CreateEntry<bool>(
-			    "randomizeSpawns", false, "Randomize Spawns",
+			randomizeSpawns = Config.Bind(
+			    "General", "randomizeSpawns", false,
 			    "Whether player's spawns should be randomized every round. true or false.");
 
-			LoggerInstance.Msg("More Players has initialized!");
+			Logger.LogInfo("More Players has initialized!");
 		}
 
-		public override void OnGUI() {
+		private void OnGUI() {
 			if (!uiOpen) {
 				return;
 			}
@@ -94,7 +91,11 @@ namespace GladioMoriMorePlayers {
 			GUILayout.EndArea();
 		}
 
-		public override void OnUpdate() {
+		private void OnDestroy() {
+			Logger.LogInfo("Plugin destroyed!");
+		}
+
+		private void Update() {
 			if (Time.time >= nextPlayerFetchTime && uiOpen) {
 				nextPlayerFetchTime = Time.time + 2;
 				currentPlayers = Object.FindObjectsOfType<MultiplayerRoomPlayer>().ToList();

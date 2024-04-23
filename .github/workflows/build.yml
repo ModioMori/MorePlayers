@@ -29,15 +29,6 @@ jobs:
     - name: Download Game Files
       run: dotnet DepotDownloader.dll -app 2908480 -username "${{ secrets.STEAM_USER }}" -password "${{ secrets.STEAM_PASS }}" -dir "Gladio Mori"
 
-    - name: Fetch MelonLoader
-      uses: robinraju/release-downloader@v1.10
-      with:
-        repository: "LavaGang/MelonLoader"
-        fileName: "MelonLoader.x64.zip"
-        out-file-path: "Gladio Mori"
-        extract: true
-        latest: true
-
     - name: Fix Reference Paths
       uses: jacobtomlinson/gha-find-replace@v3
       with:
