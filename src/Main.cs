@@ -6,6 +6,7 @@ using System.Linq;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using BepInEx.Bootstrap;
 
 namespace GladioMorePlayers {
 	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.2")]
@@ -25,7 +26,7 @@ namespace GladioMorePlayers {
 		private void Awake() {
 			instance = this;
 			log = Logger;
-			gameObject.hideFlags = HideFlags.HideAndDontSave;
+			Chainloader.ManagerObject.hideFlags = HideFlags.HideAndDontSave;
 			Harmony.CreateAndPatchAll(typeof(HarmonyPatches));
 
 			maxPlayers = Config.Bind("General", "maxPlayers", 16,
