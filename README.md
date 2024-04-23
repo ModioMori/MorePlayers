@@ -11,8 +11,7 @@ Default binding to open the manager menu is F6. You can change this in `BepInEx/
 2. [Go to the Releases page and download the latest release.](https://github.com/checkraisefold/GladioMorePlayers/releases)
 3. Open the game's install folder. ![steamwebhelper_cULdZeOTQa](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/b07f69d6-7727-48b2-9810-6335479f66fb)
 4. Drag the DLL you downloaded into the `BepInEx/plugins` folder. ![explorer_NyczDKF4uW](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/8a2ce78a-0caf-4a80-8fef-578378595896)
-5. Go to the `BepInEx/config` folder, and open `BepInEx.cfg` in a text editor. Change the setting `HideManagerGameObject` from `false` to `true`. Save the file. ![Notepad_c3wlLNw0zZ](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/b19838bd-b80d-48b5-a6d5-252154d3663a)
-6. Launch the game and play!
+5. Launch the game and play!
 
 # Screenshots
 ![Gladio_Mori_tmRbuSMFnR](https://github.com/checkraisefold/GladioMorePlayers/assets/19525688/c39d861c-6c54-481d-bd0f-bbd61194675c)
