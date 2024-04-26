@@ -69,6 +69,14 @@ namespace GladioMorePlayers {
 		[HarmonyPostfix, HarmonyPatch(typeof(PlayerMultiplayerInputManager), "Start")]
 		private static void SpectateOnPlayerSpawn(PlayerMultiplayerInputManager __instance,
 		                                          GameObject ___playerCharacter) {
+			if (__instance.multiplayerRoomPlayer == null) {
+				return;
+			}
+			if (NetworkManager.singleton != null &&
+			    (NetworkManager.singleton.mode != NetworkManagerMode.Host &&
+			     NetworkManager.singleton.mode != NetworkManagerMode.ServerOnly)) {
+				return;
+			}
 			if (!MorePlayersMod.instance!.currentSpectators.ContainsKey(
 			        __instance.multiplayerRoomPlayer.netId)) {
 				return;
