@@ -10,7 +10,7 @@ Default binding to open the manager menu is F6. You can change this in `BepInEx/
 1. [Download and install BepInEx to the game's directory.](https://docs.bepinex.dev/articles/user_guide/installation/index.html#installing-bepinex-1) You'll have to browse to the game's executable; on most systems, this will be at `C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo`. If you can't find it, use the lower instructions to open the game's install folder and find the path.
 2. [Go to the Releases page and download the latest release.](https://github.com/ModioMori/MorePlayers/releases)
 3. Open the game's install folder. ![steamwebhelper_cULdZeOTQa](https://github.com/ModioMori/MorePlayers/assets/19525688/b07f69d6-7727-48b2-9810-6335479f66fb)
-4. Drag the DLL you downloaded into the `BepInEx/plugins` folder. ![explorer_NyczDKF4uW](https://github.com/ModioMori/MorePlayers/assets/19525688/8a2ce78a-0caf-4a80-8fef-578378595896)
+4. Drag the DLL you downloaded into the `BepInEx/plugins` folder. You may have to run the game once then close it if this folder doesn't exist. ![explorer_NyczDKF4uW](https://github.com/ModioMori/MorePlayers/assets/19525688/8a2ce78a-0caf-4a80-8fef-578378595896)
 5. Launch the game and play!
 
 # Screenshots
