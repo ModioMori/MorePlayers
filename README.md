@@ -8,7 +8,7 @@ Default binding to open the manager menu is F6. You can change this in `BepInEx/
 
 # Installation (automatic, recommended)
 1. Download and install r2modman.
-2. Click Install with Mod Manager button on top of the [page](https://thunderstore.io/package/ModioMori/MorePlayers/).
+2. Click Install with Mod Manager button on top of the [page](https://thunderstore.io/c/gladio-mori/p/ModioMori/MorePlayers/).
 3. Run the game via the mod manager.
 
 # Installation (manual)
