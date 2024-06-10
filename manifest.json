@@ -1,0 +1,9 @@
+{
+    "name": "MorePlayers",
+    "version_number": "2.1.4",
+    "website_url": "https://github.com/ModioMori/MorePlayers",
+    "description": "A mod for Gladio Mori to increase the max player count.",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}
