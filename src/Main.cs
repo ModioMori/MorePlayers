@@ -72,19 +72,18 @@ namespace GladioMorePlayers {
 				return;
 			}
 			
+			if (GUILayout.Button("Ready all"))
+				currentPlayers.ForEach(player => SetReadyState(player, true));
+			
+			if (GUILayout.Button("Not Ready all"))
+				currentPlayers.ForEach(player => SetReadyState(player, false));
+			
 			bool inLobby = MultiplayerLobbyStatusManager.singleton != null;
 			
 			foreach (MultiplayerRoomPlayer player in currentPlayers) {
 				if (player == null || player.disconnecting) {
 					continue;
 				}
-				
-				if (GUILayout.Button("Ready all"))
-					SetReadyState(player, true);
-			
-				if (GUILayout.Button("Not Ready all"))
-					SetReadyState(player, false);
-				
 				GUILayout.BeginHorizontal();
 				if (inLobby) {
 					GUILayout.Box(
