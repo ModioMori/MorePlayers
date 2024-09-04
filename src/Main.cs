@@ -20,6 +20,12 @@ namespace GladioMorePlayers {
 
 		private List<MultiplayerRoomPlayer>? currentPlayers;
 		public Dictionary<uint, bool> currentSpectators = new Dictionary<uint, bool>();
+		
+		/// <summary>
+		/// List of netids and nicknames of banned players 
+		/// </summary>
+		public List<(uint, string)> bannedPlayers = new List<(uint, string)>();
+		
 		private float nextPlayerFetchTime = 0;
 		private bool uiOpen = false;
 
@@ -79,9 +85,10 @@ namespace GladioMorePlayers {
 					GUILayout.Box($"Player: {player.playerName}");
 				}
 				if (player.connectionToServer == null) {
-					if (GUILayout.Button("Kick")) {
-						player.GetComponent<NetworkIdentity>().connectionToClient.Disconnect();
-					}
+					if (GUILayout.Button("Kick"))
+						KickPlayer(player);
+					if (GUILayout.Button("Ban"))
+						BanPlayer(player);
 				}
 				if (inLobby) {
 					if (GUILayout.Button("Toggle Ready")) {
@@ -108,6 +115,9 @@ namespace GladioMorePlayers {
 					if (!currentSpectators.ContainsKey(player.netId)) {
 						currentSpectators[player.netId] = false;
 					}
+					
+					if(IsPlayerBanned(player))
+						KickPlayer(player);
 				}
 			}
 			if (openMenuBind == null) {
@@ -117,5 +127,17 @@ namespace GladioMorePlayers {
 				uiOpen = !uiOpen;
 			}
 		}
+		
+		private void BanPlayer(MultiplayerRoomPlayer player)
+		{
+			bannedPlayers.Add((player.netId, player.playerName));
+			KickPlayer(player);
+		}
+
+		private static void KickPlayer(MultiplayerRoomPlayer player) =>
+			player.GetComponent<NetworkIdentity>().connectionToClient.Disconnect();
+		
+		private bool IsPlayerBanned(MultiplayerRoomPlayer player) =>
+			bannedPlayers.Any(ban => ban.Item1 == player.netId) || bannedPlayers.Any(ban => ban.Item2 == player.playerName);
 	}
 }
