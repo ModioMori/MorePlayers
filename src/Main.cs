@@ -65,18 +65,26 @@ namespace GladioMorePlayers {
 			GUILayout.EndHorizontal();
 
 			randomizeSpawns.Value = GUILayout.Toggle(randomizeSpawns.Value, "Randomize Spawns");
-
+			
 			if (currentPlayers == null || currentPlayers.Count == 0) {
 				GUILayout.EndVertical();
 				GUILayout.EndArea();
 				return;
 			}
-
+			
 			bool inLobby = MultiplayerLobbyStatusManager.singleton != null;
+			
 			foreach (MultiplayerRoomPlayer player in currentPlayers) {
 				if (player == null || player.disconnecting) {
 					continue;
 				}
+				
+				if (GUILayout.Button("Ready all"))
+					SetReadyState(player, true);
+			
+				if (GUILayout.Button("Not Ready all"))
+					SetReadyState(player, false);
+				
 				GUILayout.BeginHorizontal();
 				if (inLobby) {
 					GUILayout.Box(
@@ -91,11 +99,9 @@ namespace GladioMorePlayers {
 						BanPlayer(player);
 				}
 				if (inLobby) {
-					if (GUILayout.Button("Toggle Ready")) {
-						player.SetReadyToBegin(!player.playerReadyState);
-						MultiplayerRoomManager RoomManager =
-						    (MultiplayerRoomManager)NetworkManager.singleton;
-						RoomManager.ReadyStatusChanged();
+					if (GUILayout.Button("Toggle Ready"))
+					{
+						SetReadyState(player, !player.playerReadyState);
 					}
 				}
 				currentSpectators[player.netId] =
@@ -126,6 +132,13 @@ namespace GladioMorePlayers {
 			if (Input.GetKeyDown(openMenuBind.Value)) {
 				uiOpen = !uiOpen;
 			}
+		}
+
+		private static void SetReadyState(MultiplayerRoomPlayer player, bool readyState)
+		{
+			player.SetReadyToBegin(readyState); 
+			MultiplayerRoomManager roomManager = (MultiplayerRoomManager)NetworkManager.singleton;
+			roomManager.ReadyStatusChanged();
 		}
 		
 		private void BanPlayer(MultiplayerRoomPlayer player)
