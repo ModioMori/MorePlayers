@@ -1,0 +1,38 @@
+name: Fetch Game
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 1 * *"
+  
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Fetch DepotDownloader
+      uses: robinraju/release-downloader@v1.10
+      with:
+        repository: "SteamRE/DepotDownloader"
+        fileName: "depotdownloader-2.5.0.zip"
+        tag: "DepotDownloader_2.5.0"
+        extract: true
+
+    - name: Download Game Files
+      run: dotnet DepotDownloader.dll -app 2908480 -username "${{ secrets.STEAM_USER }}" -password "${{ secrets.STEAM_PASS }}" -dir "GladioMori"
+
+    - name: Strip
+      run: |
+        dotnet tool install -g BepInEx.AssemblyPublicizer.Cli
+        assembly-publicizer "./GladioMori/Gladio Mori_Data/Managed" -f --strip
+
+    - name: Upload Game
+      uses: actions/upload-artifact@v4
+      with:
+        name: GladioMori
+        path: GladioMori/Gladio Mori_Data/Managed
