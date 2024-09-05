@@ -29,10 +29,10 @@ jobs:
     - name: Strip
       run: |
         dotnet tool install -g BepInEx.AssemblyPublicizer.Cli
-        assembly-publicizer "./GladioMori/Gladio Mori_Data" -f --strip
+        assembly-publicizer "./GladioMori/Gladio Mori_Data/Managed" -f --strip
 
     - name: Upload Game
       uses: actions/upload-artifact@v4
       with:
         name: Game
-        path: GladioMori/
+        path: GladioMori/Gladio Mori_Data/Managed

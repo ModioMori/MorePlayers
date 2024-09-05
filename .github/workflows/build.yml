@@ -26,7 +26,7 @@ jobs:
     - name: Fix Reference Paths
       uses: jacobtomlinson/gha-find-replace@v3
       with:
-        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Gladio Mori Demo"
+        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Gladio Mori Demo\\Gladio Mori_Data\\Managed"
         replace: "GladioMori"
         regex: false
         include: "GladioMorePlayers.csproj"
