@@ -95,10 +95,12 @@ namespace GladioMorePlayers {
 					GUILayout.Box($"Player: {player.playerName}");
 				}
 				if (player.connectionToServer == null) {
-					if (GUILayout.Button("Kick"))
+					if (GUILayout.Button("Kick")) {
 						KickPlayer(player);
-					if (GUILayout.Button("Ban"))
+					}
+					if (GUILayout.Button("Ban")) {
 						BanPlayer(player);
+					}
 				}
 				if (inLobby) {
 					if (GUILayout.Button("Toggle Ready")) {
