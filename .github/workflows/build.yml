@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
-  pull_request_target:
+  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -18,22 +18,16 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Fetch DepotDownloader
-      uses: robinraju/release-downloader@v1.10
+    - name: Download Game
+      uses: dawidd6/action-download-artifact@v6
       with:
-        repository: "SteamRE/DepotDownloader"
-        fileName: "depotdownloader-2.5.0.zip"
-        tag: "DepotDownloader_2.5.0"
-        extract: true
-
-    - name: Download Game Files
-      run: dotnet DepotDownloader.dll -app 2908480 -username "${{ secrets.STEAM_USER }}" -password "${{ secrets.STEAM_PASS }}" -dir "Gladio Mori"
+        workflow: fetch_game.yml
 
     - name: Fix Reference Paths
       uses: jacobtomlinson/gha-find-replace@v3
       with:
         find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Gladio Mori Demo"
-        replace: "Gladio Mori"
+        replace: "GladioMori"
         regex: false
         include: "GladioMorePlayers.csproj"
 
