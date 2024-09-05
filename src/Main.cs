@@ -12,6 +12,7 @@ namespace GladioMorePlayers {
 	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.5")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
+		MultiplayerRoomManager roomManagerSingleton;
 		public static ManualLogSource? log;
 
 		public ConfigEntry<int>? maxPlayers;
@@ -24,7 +25,7 @@ namespace GladioMorePlayers {
 		/// <summary>
 		/// List of netids and nicknames of banned players 
 		/// </summary>
-		public List<(uint, string)> bannedPlayers = new List<(uint, string)>();
+		public List<(string, string)> bannedPlayers = new List<(string, string)>();
 		
 		private float nextPlayerFetchTime = 0;
 		private bool uiOpen = false;
@@ -72,12 +73,14 @@ namespace GladioMorePlayers {
 				return;
 			}
 			
-			if (GUILayout.Button("Ready all"))
+			if (GUILayout.Button("Ready all")) {
 				currentPlayers.ForEach(player => SetReadyState(player, true));
-			
-			if (GUILayout.Button("Not Ready all"))
+			}
+
+			if (GUILayout.Button("Not Ready all")) {
 				currentPlayers.ForEach(player => SetReadyState(player, false));
-			
+			}
+
 			bool inLobby = MultiplayerLobbyStatusManager.singleton != null;
 			
 			foreach (MultiplayerRoomPlayer player in currentPlayers) {
@@ -98,13 +101,11 @@ namespace GladioMorePlayers {
 						BanPlayer(player);
 				}
 				if (inLobby) {
-					if (GUILayout.Button("Toggle Ready"))
-					{
+					if (GUILayout.Button("Toggle Ready")) {
 						SetReadyState(player, !player.playerReadyState);
 					}
 				}
-				currentSpectators[player.netId] =
-				    GUILayout.Toggle(currentSpectators[player.netId], "Spectator");
+				currentSpectators[player.netId] = GUILayout.Toggle(currentSpectators[player.netId], "Spectator");
 				GUILayout.EndHorizontal();
 			}
 
@@ -121,8 +122,9 @@ namespace GladioMorePlayers {
 						currentSpectators[player.netId] = false;
 					}
 					
-					if(IsPlayerBanned(player))
+					if(IsPlayerBanned(player)) {
 						KickPlayer(player);
+					}
 				}
 			}
 			if (openMenuBind == null) {
@@ -133,23 +135,29 @@ namespace GladioMorePlayers {
 			}
 		}
 
-		private static void SetReadyState(MultiplayerRoomPlayer player, bool readyState)
-		{
+		private void SetReadyState(MultiplayerRoomPlayer player, bool readyState) {
 			player.SetReadyToBegin(readyState); 
-			MultiplayerRoomManager roomManager = (MultiplayerRoomManager)NetworkManager.singleton;
-			roomManager.ReadyStatusChanged();
+			roomManagerSingleton = (MultiplayerRoomManager)NetworkManager.singleton;
+			roomManagerSingleton.ReadyStatusChanged();
 		}
 		
-		private void BanPlayer(MultiplayerRoomPlayer player)
-		{
-			bannedPlayers.Add((player.netId, player.playerName));
+		private void BanPlayer(MultiplayerRoomPlayer player) {
+			string steamId = GetSteamId(player);
+			bannedPlayers.Add((steamId, player.playerName));
 			KickPlayer(player);
 		}
 
-		private static void KickPlayer(MultiplayerRoomPlayer player) =>
+		private static void KickPlayer(MultiplayerRoomPlayer player) {
 			player.GetComponent<NetworkIdentity>().connectionToClient.Disconnect();
-		
-		private bool IsPlayerBanned(MultiplayerRoomPlayer player) =>
-			bannedPlayers.Any(ban => ban.Item1 == player.netId) || bannedPlayers.Any(ban => ban.Item2 == player.playerName);
+		}
+
+		private bool IsPlayerBanned(MultiplayerRoomPlayer player) {
+			string steamId = GetSteamId(player);
+			return bannedPlayers.Any(ban => ban.Item1 == steamId) || bannedPlayers.Any(ban => ban.Item2 == player.playerName);
+		}
+
+		private string GetSteamId(MultiplayerRoomPlayer player) {
+			return roomManagerSingleton.GetTransport().ServerGetClientAddress(player.connectionToClient.connectionId);
+		}
 	}
 }
