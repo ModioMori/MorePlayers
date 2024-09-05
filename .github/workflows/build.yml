@@ -22,6 +22,7 @@ jobs:
       uses: dawidd6/action-download-artifact@v6
       with:
         workflow: fetch_game.yml
+        path: GladioMori
 
     - name: Fix Reference Paths
       uses: jacobtomlinson/gha-find-replace@v3
