@@ -24,7 +24,7 @@ namespace GladioMorePlayers {
 		/// <summary>
 		/// List of netids and nicknames of banned players 
 		/// </summary>
-		public Dictionary<(string, bool)> bannedPlayers = new Dictionary<(string, bool)>();
+		public Dictionary(string, bool> bannedPlayers = new Dictionary<string, bool>();
 		
 		private float nextPlayerFetchTime = 0;
 		private bool uiOpen = false;
