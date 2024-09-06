@@ -16,11 +16,11 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Fetch DepotDownloader
-      uses: robinraju/release-downloader@v1.10
+      uses: robinraju/release-downloader@v1.11
       with:
         repository: "SteamRE/DepotDownloader"
-        fileName: "depotdownloader-2.5.0.zip"
-        tag: "DepotDownloader_2.5.0"
+        fileName: "DepotDownloader-framework.zip"
+        tag: "DepotDownloader_2.7.1"
         extract: true
 
     - name: Download Game Files
