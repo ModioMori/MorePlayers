@@ -12,7 +12,6 @@ namespace GladioMorePlayers {
 	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.1.5")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
-		MultiplayerRoomManager roomManagerSingleton;
 		public static ManualLogSource? log;
 
 		public ConfigEntry<int>? maxPlayers;
@@ -25,7 +24,7 @@ namespace GladioMorePlayers {
 		/// <summary>
 		/// List of netids and nicknames of banned players 
 		/// </summary>
-		public List<(string, string)> bannedPlayers = new List<(string, string)>();
+		public Dictionary<(string, bool)> bannedPlayers = new Dictionary<(string, bool)>();
 		
 		private float nextPlayerFetchTime = 0;
 		private bool uiOpen = false;
@@ -139,13 +138,14 @@ namespace GladioMorePlayers {
 
 		private void SetReadyState(MultiplayerRoomPlayer player, bool readyState) {
 			player.SetReadyToBegin(readyState); 
-			roomManagerSingleton = (MultiplayerRoomManager)NetworkManager.singleton;
-			roomManagerSingleton.ReadyStatusChanged();
+			MultiplayerRoomManager roomManager =
+			    (MultiplayerRoomManager)NetworkManager.singleton;
+			roomManager.ReadyStatusChanged();
 		}
 		
 		private void BanPlayer(MultiplayerRoomPlayer player) {
 			string steamId = GetSteamId(player);
-			bannedPlayers.Add((steamId, player.playerName));
+			bannedPlayers[steamId] = true;
 			KickPlayer(player);
 		}
 
@@ -155,11 +155,13 @@ namespace GladioMorePlayers {
 
 		private bool IsPlayerBanned(MultiplayerRoomPlayer player) {
 			string steamId = GetSteamId(player);
-			return bannedPlayers.Any(ban => ban.Item1 == steamId) || bannedPlayers.Any(ban => ban.Item2 == player.playerName);
+			return bannedPlayers.TryGetValue(steamId, out bool isBanned) && isBanned
 		}
 
-		private string GetSteamId(MultiplayerRoomPlayer player) {
-			return roomManagerSingleton.GetTransport().ServerGetClientAddress(player.connectionToClient.connectionId);
+		private static string GetSteamId(MultiplayerRoomPlayer player) {
+			MultiplayerRoomManager roomManager =
+			    (MultiplayerRoomManager)NetworkManager.singleton;
+			return roomManager.GetTransport().ServerGetClientAddress(player.connectionToClient.connectionId);
 		}
 	}
 }
