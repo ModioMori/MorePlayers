@@ -155,7 +155,7 @@ namespace GladioMorePlayers {
 
 		private bool IsPlayerBanned(MultiplayerRoomPlayer player) {
 			string steamId = GetSteamId(player);
-			return bannedPlayers.TryGetValue(steamId, out bool isBanned) && isBanned
+			return bannedPlayers.TryGetValue(steamId, out bool isBanned) && isBanned;
 		}
 
 		private static string GetSteamId(MultiplayerRoomPlayer player) {
