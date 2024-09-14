@@ -10,8 +10,8 @@ namespace GladioMorePlayers {
 	public static class HarmonyPatches {
 		[HarmonyPrefix, HarmonyPatch(typeof(PlayerMultiplayerInputManager), "Awake")]
 		private static void AddNewSpawns() {
-			GameObject SpawnPointHolder = GameObject.Find("SpawnPoints");
-			Vector3[] PositionArray =
+			GameObject spawnPointHolder = GameObject.Find("SpawnPoints");
+			Vector3[] positionArray =
 			    new[] { new Vector3(-8f, 1.45f, 9f), new Vector3(8f, 1.45f, 9f),
 				        new Vector3(8f, 1.45f, -9f), new Vector3(-8f, 1.45f, -9f),
 				        new Vector3(0, 1.45f, -12f), new Vector3(0, 1.45f, 12f),
@@ -21,48 +21,64 @@ namespace GladioMorePlayers {
 
 			// We should only do this on the default game map.
 			if (SceneManager.GetActiveScene().name == "map_ArenaOfBlades" &&
-			    SpawnPointHolder.transform.childCount < PositionArray.Length + 4) {
-				for (int i = 0; i < PositionArray.Length; i++) {
+			    spawnPointHolder.transform.childCount < positionArray.Length + 4) {
+				for (int i = 0; i < positionArray.Length; i++) {
 					GameObject NewSpawn = new GameObject();
-					NewSpawn.transform.position = PositionArray[i];
-					NewSpawn.transform.SetParent(SpawnPointHolder.transform);
+					NewSpawn.transform.position = positionArray[i];
+					NewSpawn.transform.SetParent(spawnPointHolder.transform);
 					NewSpawn.name = $"Spawnpoint ({4 + i})";
 				}
 			}
 
-			MorePlayersMod Mod = MorePlayersMod.instance!;
-			if (Mod.randomizeSpawns == null) {
+			MorePlayersMod mod = MorePlayersMod.instance!;
+			if (mod.randomizeSpawns == null) {
 				MorePlayersMod.log!.LogError(
 				    "Could not get random spawns pref! Defaulting to false.");
 				return;
 			}
-			if (!Mod.randomizeSpawns.Value)
+			if (!mod.randomizeSpawns.Value)
 				return;
 
-			List<int> Indexes = new List<int>();
-			List<Transform> Transforms = new List<Transform>();
-			for (int i = 0; i < SpawnPointHolder.transform.childCount; ++i) {
-				Indexes.Add(i);
-				Transforms.Add(SpawnPointHolder.transform.GetChild(i));
+			List<int> indexes = new List<int>();
+			List<Transform> transforms = new List<Transform>();
+			for (int i = 0; i < spawnPointHolder.transform.childCount; ++i) {
+				indexes.Add(i);
+				transforms.Add(spawnPointHolder.transform.GetChild(i));
 			}
-			foreach (Transform T in Transforms) {
-				T.SetSiblingIndex(Indexes[Random.Range(0, Indexes.Count)]);
+			foreach (Transform T in transforms) {
+				T.SetSiblingIndex(indexes[Random.Range(0, indexes.Count)]);
 			}
 		}
 
 		[HarmonyPrefix, HarmonyPatch(typeof(SteamManager), "HostLobby")]
 		private static bool ChangeLobbyMaxConnections() {
-			MorePlayersMod Mod = MorePlayersMod.instance!;
-			if (Mod.maxPlayers == null) {
+			MorePlayersMod mod = MorePlayersMod.instance!;
+			if (mod.maxPlayers == null) {
 				MorePlayersMod.log!.LogError(
 				    "Could not get max players pref! Defaulting to 4 players.");
 				return true;
 			}
-			NetworkManager.singleton.maxConnections = Mod.maxPlayers.Value;
+			NetworkManager.singleton.maxConnections = mod.maxPlayers.Value;
 			if (SteamClient.IsValid)
-				SteamMatchmaking.CreateLobbyAsync(Mod.maxPlayers.Value);
+				SteamMatchmaking.CreateLobbyAsync(mod.maxPlayers.Value);
 
 			return false;
+		}
+
+		[HarmonyPostfix,
+		 HarmonyPatch(typeof(MultiplayerLobbyStatusManager), "UpdatePlayerNamesAndStatuses")]
+		private static void UpdatePlayersOnLobbyUpdate() {
+			MorePlayersMod mod = MorePlayersMod.instance!;
+			mod.UpdateStoredPlayerList();
+		}
+
+		[HarmonyPostfix, HarmonyPatch(typeof(MultiplayerRoomManager), "OnServerConnect")]
+		private static void KickBannedPlayers(NetworkConnectionToClient conn) {
+			MorePlayersMod mod = MorePlayersMod.instance!;
+			MultiplayerRoomManager roomManager = (MultiplayerRoomManager)NetworkManager.singleton;
+			if (mod.IsPlayerBanned(conn.connectionId)) {
+				roomManager.GetTransport().ServerDisconnect(conn.connectionId);
+			}
 		}
 
 		[HarmonyPostfix, HarmonyPatch(typeof(PlayerMultiplayerInputManager), "Start")]
@@ -71,16 +87,18 @@ namespace GladioMorePlayers {
 			if (__instance.multiplayerRoomPlayer == null)
 				return;
 
-			NetworkManager NetMan = NetworkManager.singleton;
-			if (NetMan != null && (NetMan.mode != NetworkManagerMode.Host &&
-			                       NetMan.mode != NetworkManagerMode.ServerOnly))
+			NetworkManager netManager = NetworkManager.singleton;
+			if (netManager != null && (netManager.mode != NetworkManagerMode.Host &&
+			                           netManager.mode != NetworkManagerMode.ServerOnly))
 				return;
 
-			MorePlayersMod Mod = MorePlayersMod.instance!;
-			if (!Mod.currentSpectators.ContainsKey(__instance.multiplayerRoomPlayer.netId))
+			MorePlayersMod mod = MorePlayersMod.instance!;
+			string steamID = MorePlayersMod.GetSteamId(__instance.multiplayerRoomPlayer);
+
+			if (!mod.currentSpectators.ContainsKey(steamID))
 				return;
 
-			if (Mod.currentSpectators[__instance.multiplayerRoomPlayer.netId]) {
+			if (mod.currentSpectators[steamID]) {
 				__instance.HandlePlayerDeath();
 				Object.Destroy(___playerCharacter.transform.Find("PlayerModelPhysics").gameObject);
 				Object.Destroy(
