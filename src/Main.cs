@@ -105,7 +105,10 @@ namespace GladioMorePlayers {
 					}
 				}
 
-				GUILayout.Toggle(player.Networkspectator, "Spectator");
+				bool newSpec = GUILayout.Toggle(player.Networkspectator, "Spectator");
+				if (player.Networkspectator != newSpec) {
+					player.Networkspectator = newSpec;
+				}
 				GUILayout.EndHorizontal();
 			}
 
