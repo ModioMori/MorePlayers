@@ -74,7 +74,7 @@ namespace GladioMorePlayers {
 				currentPlayers.ForEach(player => SetReadyState(player, true));
 			}
 
-			if (GUILayout.Button("Un-Ready all")) {
+			if (GUILayout.Button("Un-Ready All")) {
 				currentPlayers.ForEach(player => SetReadyState(player, false));
 			}
 
