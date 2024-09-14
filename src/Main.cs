@@ -19,7 +19,6 @@ namespace GladioMorePlayers {
 		public ConfigEntry<bool>? randomizeSpawns;
 
 		internal List<MultiplayerRoomPlayer>? currentPlayers;
-		public Dictionary<string, bool> currentSpectators = new Dictionary<string, bool>();
 
 		/// <summary>
 		/// List of netids and nicknames of banned players
@@ -106,9 +105,7 @@ namespace GladioMorePlayers {
 					}
 				}
 
-				string steamId = GetSteamId(player.connectionToClient.connectionId);
-				currentSpectators[steamId] =
-				    GUILayout.Toggle(currentSpectators[steamId], "Spectator");
+				GUILayout.Toggle(player.Networkspectator, "Spectator");
 				GUILayout.EndHorizontal();
 			}
 
@@ -127,12 +124,6 @@ namespace GladioMorePlayers {
 
 		internal void UpdateStoredPlayerList() {
 			this.currentPlayers = Object.FindObjectsOfType<MultiplayerRoomPlayer>().ToList();
-			foreach (MultiplayerRoomPlayer player in currentPlayers) {
-				string steamId = GetSteamId(player.connectionToClient.connectionId);
-				if (!currentSpectators.ContainsKey(steamId)) {
-					currentSpectators[steamId] = false;
-				}
-			}
 		}
 
 		private void SetReadyState(MultiplayerRoomPlayer player, bool readyState) {

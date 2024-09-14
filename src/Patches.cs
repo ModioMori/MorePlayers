@@ -80,30 +80,5 @@ namespace GladioMorePlayers {
 				roomManager.GetTransport().ServerDisconnect(conn.connectionId);
 			}
 		}
-
-		[HarmonyPostfix, HarmonyPatch(typeof(PlayerMultiplayerInputManager), "Start")]
-		private static void SpectateOnPlayerSpawn(PlayerMultiplayerInputManager __instance,
-		                                          GameObject ___playerCharacter) {
-			if (__instance.multiplayerRoomPlayer == null)
-				return;
-
-			NetworkManager netManager = NetworkManager.singleton;
-			if (netManager != null && (netManager.mode != NetworkManagerMode.Host &&
-			                           netManager.mode != NetworkManagerMode.ServerOnly))
-				return;
-
-			MorePlayersMod mod = MorePlayersMod.instance!;
-			string steamID = MorePlayersMod.GetSteamId(__instance.multiplayerRoomPlayer);
-
-			if (!mod.currentSpectators.ContainsKey(steamID))
-				return;
-
-			if (mod.currentSpectators[steamID]) {
-				__instance.HandlePlayerDeath();
-				Object.Destroy(___playerCharacter.transform.Find("PlayerModelPhysics").gameObject);
-				Object.Destroy(
-				    ___playerCharacter.transform.Find("PlayerModelAnimation").gameObject);
-			}
-		}
 	}
 }
