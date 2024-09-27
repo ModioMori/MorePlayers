@@ -9,7 +9,7 @@ using HarmonyLib;
 using BepInEx.Bootstrap;
 
 namespace GladioMorePlayers {
-	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.2.0")]
+	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.2.1")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
 		public static ManualLogSource? log;
