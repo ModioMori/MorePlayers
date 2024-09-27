@@ -65,9 +65,14 @@ namespace GladioMorePlayers {
 			return false;
 		}
 
-		[HarmonyPostfix,
-		 HarmonyPatch(typeof(MultiplayerLobbyStatusManager), "UpdatePlayerNamesAndStatuses")]
-		private static void UpdatePlayersOnLobbyUpdate() {
+		[HarmonyPostfix, HarmonyPatch(typeof(MultiplayerRoomPlayer), "OnStartClient")]
+		private static void UpdatePlayersOnPlayerStart() {
+			MorePlayersMod mod = MorePlayersMod.instance!;
+			mod.UpdateStoredPlayerList();
+		}
+
+		[HarmonyPostfix, HarmonyPatch(typeof(MultiplayerRoomPlayer), "OnStopClient")]
+		private static void UpdatePlayersOnPlayerStop() {
 			MorePlayersMod mod = MorePlayersMod.instance!;
 			mod.UpdateStoredPlayerList();
 		}
