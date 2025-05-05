@@ -9,7 +9,7 @@
       https://nuget.bepinex.dev/v3/index.json
     </RestoreAdditionalProjectSources>
     <RootNamespace>GladioMorePlayers</RootNamespace>
-    <Version>2.2.1</Version>
+    <Version>2.2.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,16 +26,16 @@
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Facepunch.Steamworks.Win64">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
     </Reference>
     <Reference Include="Mirror">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Mirror.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="Mirror.Components">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori Demo\Gladio Mori_Data\Managed\Mirror.Components.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Mirror.Components.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
