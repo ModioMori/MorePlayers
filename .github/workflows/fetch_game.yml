@@ -13,7 +13,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.x
 
     - name: Fetch DepotDownloader
       uses: robinraju/release-downloader@v1.12
