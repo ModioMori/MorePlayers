@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Download Game
-      uses: dawidd6/action-download-artifact@v6
+      uses: dawidd6/action-download-artifact@v9
       with:
         workflow: fetch_game.yml
 

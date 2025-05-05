@@ -16,15 +16,15 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Fetch DepotDownloader
-      uses: robinraju/release-downloader@v1.11
+      uses: robinraju/release-downloader@v1.12
       with:
         repository: "SteamRE/DepotDownloader"
         fileName: "DepotDownloader-framework.zip"
-        tag: "DepotDownloader_2.7.1"
+        tag: "DepotDownloader_3.3.0"
         extract: true
 
     - name: Download Game Files
-      run: dotnet DepotDownloader.dll -app 2908480 -username "${{ secrets.STEAM_USER }}" -password "${{ secrets.STEAM_PASS }}" -dir "GladioMori"
+      run: dotnet DepotDownloader.dll -app 2689120 -username "${{ secrets.STEAM_USER }}" -password "${{ secrets.STEAM_PASS }}" -dir "GladioMori"
 
     - name: Strip
       run: |
