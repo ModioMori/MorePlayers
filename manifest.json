@@ -1,6 +1,6 @@
 {
     "name": "MorePlayers",
-    "version_number": "2.2.2",
+    "version_number": "2.2.3",
     "website_url": "https://github.com/ModioMori/MorePlayers",
     "description": "A mod for Gladio Mori to increase the max player count.",
     "dependencies": [

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using HarmonyLib;
+using Utils;
 
 namespace GladioMorePlayers {
 	[HarmonyPatch]
@@ -50,19 +51,17 @@ namespace GladioMorePlayers {
 			}
 		}
 
-		[HarmonyPrefix, HarmonyPatch(typeof(SteamManager), "HostLobby")]
-		private static bool ChangeLobbyMaxConnections() {
+		[HarmonyPrefix, HarmonyPatch(typeof(SteamManager), "HostLobby"), HarmonyPatch(typeof(EpicManager), "HostLobby")]
+		private static void ChangeLobbyMaxConnections() {
 			MorePlayersMod mod = MorePlayersMod.instance!;
 			if (mod.maxPlayers == null) {
 				MorePlayersMod.log!.LogError(
 				    "Could not get max players pref! Defaulting to 4 players.");
-				return true;
+                NetworkHelpers.maxPlayerCount = 4u;
+                return;
 			}
-			NetworkManager.singleton.maxConnections = mod.maxPlayers.Value;
-			if (SteamClient.IsValid)
-				SteamMatchmaking.CreateLobbyAsync(mod.maxPlayers.Value);
 
-			return false;
+			NetworkHelpers.maxPlayerCount = mod.maxPlayers.Value;
 		}
 
 		[HarmonyPostfix, HarmonyPatch(typeof(MultiplayerRoomPlayer), "OnStartClient")]

@@ -9,7 +9,7 @@
       https://nuget.bepinex.dev/v3/index.json
     </RestoreAdditionalProjectSources>
     <RootNamespace>GladioMorePlayers</RootNamespace>
-    <Version>2.2.2</Version>
+    <Version>2.2.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

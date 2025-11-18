@@ -9,12 +9,12 @@ using HarmonyLib;
 using BepInEx.Bootstrap;
 
 namespace GladioMorePlayers {
-	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.2.2")]
+	[BepInPlugin("gay.crf.gladiomoreplayers", "Gladio More Players", "2.2.3")]
 	public class MorePlayersMod : BaseUnityPlugin {
 		public static MorePlayersMod? instance;
 		public static ManualLogSource? log;
 
-		public ConfigEntry<int>? maxPlayers;
+		public ConfigEntry<uint>? maxPlayers;
 		private ConfigEntry<string>? openMenuBind;
 		public ConfigEntry<bool>? randomizeSpawns;
 
@@ -32,7 +32,7 @@ namespace GladioMorePlayers {
 			log = Logger;
 			Harmony.CreateAndPatchAll(typeof(HarmonyPatches));
 
-			maxPlayers = Config.Bind("General", "maxPlayers", 16,
+			maxPlayers = Config.Bind("General", "maxPlayers", 16u,
 			                         "Maximum amount of players that can join your server.");
 			openMenuBind = Config.Bind(
 			    "General", "openMenuBind", "f6",
@@ -58,7 +58,7 @@ namespace GladioMorePlayers {
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Box($"Maximum Players: {maxPlayers.Value}\n(restart lobby after change)");
-			maxPlayers.Value = (int)GUILayout.HorizontalSlider(maxPlayers.Value, 1.0f, 16.0f);
+			maxPlayers.Value = (uint)GUILayout.HorizontalSlider(maxPlayers.Value, 1.0f, 16.0f);
 			GUILayout.EndHorizontal();
 
 			randomizeSpawns.Value = GUILayout.Toggle(randomizeSpawns.Value, "Randomize Spawns");
