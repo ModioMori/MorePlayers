@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>MorePlayers</AssemblyName>
+		<Description>More players for the game Gladio Mori by Plebeian Studio.</Description>
+		<Version>3.0.0</Version>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+		<PackageReference Include="HarmonyX" Version="2.16.0" IncludeAssets="compile" />
+		<PackageReference Include="UnityEngine.Modules" Version="6000.0.59" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Assembly-CSharp.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Mirror">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Mirror.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Mirror.Components">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Gladio Mori\Gladio Mori_Data\Managed\Mirror.Components.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+</Project>

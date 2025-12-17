@@ -1,16 +1,18 @@
 ﻿using Mirror;
-using Steamworks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using HarmonyLib;
 using Utils;
 
-namespace GladioMorePlayers {
+namespace MorePlayers {
 	[HarmonyPatch]
 	public static class HarmonyPatches {
 		[HarmonyPrefix, HarmonyPatch(typeof(PlayerMultiplayerInputManager), "Awake")]
 		private static void AddNewSpawns() {
+			// TODO: Redo this to use configuration files or resources instead of hardcoded, so we
+			// can support all base game maps. Not needed for custom maps, those should come with
+			// more spawns out of the box.
 			GameObject spawnPointHolder = GameObject.Find("SpawnPoints");
 			Vector3[] positionArray =
 			    new[] { new Vector3(-8f, 1.45f, 9f), new Vector3(8f, 1.45f, 9f),
@@ -20,7 +22,6 @@ namespace GladioMorePlayers {
 				        new Vector3(-7f, 6f, 7f),    new Vector3(7f, 6f, 7f),
 				        new Vector3(7f, 6f, -7f),    new Vector3(-7f, 6f, -7f) };
 
-			// We should only do this on the default game map.
 			if (SceneManager.GetActiveScene().name == "map_ArenaOfBlades" &&
 			    spawnPointHolder.transform.childCount < positionArray.Length + 4) {
 				for (int i = 0; i < positionArray.Length; i++) {
@@ -32,12 +33,7 @@ namespace GladioMorePlayers {
 			}
 
 			MorePlayersMod mod = MorePlayersMod.instance!;
-			if (mod.randomizeSpawns == null) {
-				MorePlayersMod.log!.LogError(
-				    "Could not get random spawns pref! Defaulting to false.");
-				return;
-			}
-			if (!mod.randomizeSpawns.Value)
+			if (!mod.randomizeSpawns)
 				return;
 
 			List<int> indexes = new List<int>();
@@ -51,17 +47,13 @@ namespace GladioMorePlayers {
 			}
 		}
 
-		[HarmonyPrefix, HarmonyPatch(typeof(SteamManager), "HostLobby"), HarmonyPatch(typeof(EpicManager), "HostLobby")]
+		[HarmonyPrefix, HarmonyPatch(typeof(SteamManager), "HostLobby"),
+		 HarmonyPatch(typeof(EpicManager), "HostLobby")]
 		private static void ChangeLobbyMaxConnections() {
 			MorePlayersMod mod = MorePlayersMod.instance!;
-			if (mod.maxPlayers == null) {
-				MorePlayersMod.log!.LogError(
-				    "Could not get max players pref! Defaulting to 4 players.");
-                NetworkHelpers.maxPlayerCount = 4u;
-                return;
-			}
 
-			NetworkHelpers.maxPlayerCount = mod.maxPlayers.Value;
+			NetworkManager.singleton.maxConnections = System.Convert.ToInt32(mod.maxPlayers);
+			NetworkHelpers.maxPlayerCount = mod.maxPlayers;
 		}
 
 		[HarmonyPostfix, HarmonyPatch(typeof(MultiplayerRoomPlayer), "OnStartClient")]
@@ -74,15 +66,6 @@ namespace GladioMorePlayers {
 		private static void UpdatePlayersOnPlayerStop() {
 			MorePlayersMod mod = MorePlayersMod.instance!;
 			mod.UpdateStoredPlayerList();
-		}
-
-		[HarmonyPostfix, HarmonyPatch(typeof(MultiplayerRoomManager), "OnServerConnect")]
-		private static void KickBannedPlayers(NetworkConnectionToClient conn) {
-			MorePlayersMod mod = MorePlayersMod.instance!;
-			MultiplayerRoomManager roomManager = (MultiplayerRoomManager)NetworkManager.singleton;
-			if (mod.IsPlayerBanned(conn.connectionId)) {
-				roomManager.GetTransport().ServerDisconnect(conn.connectionId);
-			}
 		}
 	}
 }

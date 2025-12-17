@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.34607.79
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GladioMorePlayers", "GladioMorePlayers.csproj", "{E3AF693C-8DCE-4964-9A77-F698F942011B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorePlayers", "MorePlayers.csproj", "{E3AF693C-8DCE-4964-9A77-F698F942011B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DCD8C841-5A5B-4D68-9510-32F96AF232E5}"
+	ProjectSection(SolutionItems) = preProject
+		gm.modcfg = gm.modcfg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

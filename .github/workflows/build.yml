@@ -12,21 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10
 
     - name: Download Game
-      uses: dawidd6/action-download-artifact@v9
+      uses: dawidd6/action-download-artifact@v11
       with:
         workflow: fetch_game.yml
 
     - name: Fix Reference Paths
       uses: jacobtomlinson/gha-find-replace@v3
       with:
-        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Gladio Mori Demo\\Gladio Mori_Data\\Managed"
+        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Gladio Mori\\Gladio Mori_Data\\Managed"
         replace: "GladioMori"
         regex: false
         include: "GladioMorePlayers.csproj"
@@ -37,9 +37,9 @@ jobs:
         dotnet build --configuration Release
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: Build
         path: |
-          bin/Debug/netstandard2.1/GladioMorePlayers.dll
-          bin/Release/netstandard2.1/GladioMorePlayers.dll
+          bin/Debug/netstandard2.1/MorePlayers.dll
+          bin/Release/netstandard2.1/MorePlayers.dll
